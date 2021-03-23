@@ -8,7 +8,7 @@ async function run() {
         const workdir = core.getInput('workdir') || '.';
         const tag = core.getInput('tag');
 
-        const vummPath = await installer.installVUMM(version);
+        const vummPath = await installer.installVersion(version);
         core.info('VUMM installed successfully');
 
         if (workdir && workdir !== '.') {

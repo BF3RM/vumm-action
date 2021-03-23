@@ -14,6 +14,7 @@
     "venice unleashed"
   ],
   "author": "BF3: Reality Mod Team",
+  "main": "build/index.js",
   "scripts": {
     "build": "tsc && ncc build",
     "test": "jest --coverage"

@@ -58,7 +58,7 @@ async function extractDownload(path: string) {
  * Install VUMM and return the path it's installed at
  * @param version version to install
  */
-export async function installVUMM(version: string): Promise<string> {
+export async function installVersion(version: string): Promise<string> {
     const tag = await resolveTag(version);
     if (!tag) {
         throw new Error(`Failed to find VUMM release: ${version}`);
