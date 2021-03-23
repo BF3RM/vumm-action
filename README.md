@@ -1,2 +1,2 @@
-# vumm-actions
-VU Mod Manager GitHub Actions
+# VU Mod Manager Action
+GitHub Action for VU Mod Manager

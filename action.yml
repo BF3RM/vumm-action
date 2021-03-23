@@ -1,0 +1,23 @@
+name: 'VU Mod Manager Action'
+description: 'GitHub Action for VUMM, a mod manager for Venice Unleashed'
+author: 'BF3: Reality Mod Team'
+branding:
+  color: 'green'
+  icon: 'package'
+
+inputs:
+  version:
+    description: 'VUMM version'
+    default: 'latest'
+    required: false
+  tag:
+    description: 'Tag to publish to'
+    required: false
+  workdir:
+    description: 'Working directory'
+    default: '.'
+    required: false
+
+runs:
+  using: 'node12'
+  dist: 'dist/index.js'
