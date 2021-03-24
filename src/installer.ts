@@ -1,7 +1,6 @@
 import { downloadTool, extractZip, extractTar, cacheDir } from '@actions/tool-cache';
 import { HttpClient } from '@actions/http-client';
 import { info, debug } from '@actions/core';
-import { maxSatisfying } from 'semver';
 import os from 'os';
 import path from 'path';
 
@@ -17,21 +16,8 @@ const osArch: string = os.arch();
 async function resolveTag(version: string): Promise<string | null> {
     const http = new HttpClient('vumm-action');
 
-    if (version === 'latest') {
-        const res = await http.getJson<GitHubRelease>(`https://github.com/${org}/${repo}/releases/latest`);
-        return res.result?.tag_name ?? null;
-    }
-
-    const res = await http.getJson<Array<GitHubRelease>>(`https://api.github.com/repos/${org}/${repo}/releases`);
-    
-    if (!res.result) {
-        return null;
-    }
-
-    const tags = res.result.map(release => release.tag_name);
-    debug(`Found ${tags.length} tags`);
-
-    return maxSatisfying(tags, version);
+    const res = await http.getJson<GitHubRelease>(`https://github.com/${org}/${repo}/releases/${version}`);
+    return res.result?.tag_name ?? null;
 }
 
 function resolveFilename(version: string) {
