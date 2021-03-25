@@ -17,9 +17,8 @@ An example workflow can be seen below
 name: publish
 
 on:
-  push:
-    tags:
-      - '*'
+  release:
+    types: [published]
 
 jobs:
   publish:
@@ -29,9 +28,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      ... your build steps
-
       - name: Publish
         uses: BF3RM/vumm-action
         env:
