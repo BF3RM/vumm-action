@@ -34,16 +34,16 @@ async function resolveTag(version: string): Promise<string | null> {
     return maxSatisfying(tags, version);
 }
 
-function resolveFilename(version: string) {
-    const platform = osPlatform === 'win32' ? 'win' : osPlatform === 'darwin' ? 'macos' : 'linux';
-    const arch = osArch === 'x64' ? '64' : '32';
+function resolveFilename() {
+    const platform = osPlatform === 'win32' ? 'windows' : osPlatform === 'darwin' ? 'darwin' : 'linux';
+    const arch = osArch === 'x64' ? 'amd64' : '386';
     const ext = osPlatform === 'win32' ? 'zip' : 'tar.gz';
 
-    return `vumm-${version.replace(/^v/, '')}-${platform}${arch}.${ext}`;
+    return `vumm_${platform}_${arch}.${ext}`;
 }
 
 function resolveDownloadUrl(tag: string) {
-    const filename = resolveFilename(tag);
+    const filename = resolveFilename();
     return `https://github.com/${org}/${repo}/releases/download/${tag}/${filename}`;
 }
 

@@ -8,7 +8,7 @@ describe('installer', () => {
     });
 
     it('installs a specific version', async () => {
-        const vummPath = await installVersion('v0.1.0');
+        const vummPath = await installVersion('v0.1.8');
         expect(fs.existsSync(vummPath)).toBeTruthy();
     });
 

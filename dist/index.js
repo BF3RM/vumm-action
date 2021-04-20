@@ -45,7 +45,7 @@ function run() {
             const version = core.getInput('version') || 'latest';
             const workdir = core.getInput('workdir') || '.';
             const tag = core.getInput('tag');
-            const vummPath = yield installer.installVUMM(version);
+            const vummPath = yield installer.installVersion(version);
             core.info('VUMM installed successfully');
             if (workdir && workdir !== '.') {
                 core.info(`Using ${workdir} as working directory`);
@@ -86,7 +86,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.installVUMM = void 0;
+exports.installVersion = void 0;
 const tool_cache_1 = __nccwpck_require__(7784);
 const http_client_1 = __nccwpck_require__(9925);
 const core_1 = __nccwpck_require__(2186);
@@ -114,14 +114,14 @@ function resolveTag(version) {
         return semver_1.maxSatisfying(tags, version);
     });
 }
-function resolveFilename(version) {
-    const platform = osPlatform === 'win32' ? 'win' : osPlatform === 'darwin' ? 'macos' : 'linux';
-    const arch = osArch === 'x64' ? '64' : '32';
+function resolveFilename() {
+    const platform = osPlatform === 'win32' ? 'windows' : osPlatform === 'darwin' ? 'darwin' : 'linux';
+    const arch = osArch === 'x64' ? 'amd64' : '386';
     const ext = osPlatform === 'win32' ? 'zip' : 'tar.gz';
-    return `vumm-${version.replace(/^v/, '')}-${platform}${arch}.${ext}`;
+    return `vumm_${platform}_${arch}.${ext}`;
 }
 function resolveDownloadUrl(tag) {
-    const filename = resolveFilename(tag);
+    const filename = resolveFilename();
     return `https://github.com/${org}/${repo}/releases/download/${tag}/${filename}`;
 }
 function extractDownload(path) {
@@ -135,7 +135,7 @@ function extractDownload(path) {
  * Install VUMM and return the path it's installed at
  * @param version version to install
  */
-function installVUMM(version) {
+function installVersion(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const tag = yield resolveTag(version);
         if (!tag) {
@@ -156,7 +156,7 @@ function installVUMM(version) {
         return executable;
     });
 }
-exports.installVUMM = installVUMM;
+exports.installVersion = installVersion;
 //# sourceMappingURL=installer.js.map
 
 /***/ }),
